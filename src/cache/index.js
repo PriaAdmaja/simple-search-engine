@@ -9,6 +9,10 @@ export const loadDBDataToCache = async () => {
     console.log("Fetching data from DB...");
 
     const { rows } = await db.query(`SELECT * FROM ${tableName}`);
+    if (!rows || rows.length === 0) {
+      console.warn("No data found in the database.");
+      return;
+    }
     citiesCache = rows;
 
     console.log("Data is ready");

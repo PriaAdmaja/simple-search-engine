@@ -30,9 +30,15 @@ export function filteringData(data, search) {
     .filter(
       ({ district, city, province }) => Math.min(district, city, province) <= 2
     )
-    .sort(
-      (a, b) =>
-        a.district - b.district || a.city - b.city || a.province - b.province
-    )
+    .sort((a, b) => {
+      const minA = Math.min(a.district, a.city, a.province);
+      const minB = Math.min(b.district, b.city, b.province);
+
+      if (minA !== minB) return minA - minB;
+
+      if (a.district !== b.district) return a.district - b.district;
+      if (a.city !== b.city) return a.city - b.city;
+      return a.province - b.province;
+    })
     .map(({ datum }) => datum);
 }
