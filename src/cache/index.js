@@ -5,15 +5,19 @@ const tableName = "locations";
 let citiesCache = [];
 
 export const loadDBDataToCache = async () => {
+  const client = await db.connect();
+
   try {
     console.log("Fetching data from DB...");
 
-    const { rows } = await db.query(`SELECT * FROM ${tableName}`);
+    const { rows } = await client.query(`SELECT * FROM ${tableName}`);
     citiesCache = rows;
 
     console.log("Data is ready");
   } catch (error) {
     console.error("Error fetching data:", error.message);
+  } finally {
+    client.release();
   }
 };
 
