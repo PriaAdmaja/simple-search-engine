@@ -6,13 +6,25 @@ homeRouter.get("/", (req, res) => {
   const { search } = req.query;
   const data = getData(search);
 
+  if (search) {
+    const searchResponse = {
+      ...(data && data.length > 0
+        ? { status: 200, message: "Success" }
+        : { status: 404, message: "Not found!" }),
+      data: data ?? [],
+    };
+
+    res.json(searchResponse);
+    return;
+  }
+
   const welcomeMessage = {
-    msg: "Welcome to the New World!⛵",
-    statusMessage: dataReady()
+    message: "Welcome to the New World!⛵",
+    dataStatus: dataReady()
       ? "Data is ready!"
-      : "Data is not ready. Please reload in several times again!",
+      : "Data is not ready. Please try reloading a few more times!",
     author: "M. Pria Admaja",
-    ...(data && data.length > 0 && { data }),
+    exampleQuery: "/?search=malang",
   };
 
   res.json(welcomeMessage);
