@@ -20,25 +20,35 @@
 import { distance } from "./levenhsteinDistance.js";
 
 export function filteringData(data, search) {
-  return data
-    .map((datum) => ({
-      datum,
-      district: distance(datum.district_name, search),
-      city: distance(datum.city_name, search),
-      province: distance(datum.city_name, search),
-    }))
-    .filter(
-      ({ district, city, province }) => Math.min(district, city, province) <= 2
-    )
-    .sort((a, b) => {
-      const minA = Math.min(a.district, a.city, a.province);
-      const minB = Math.min(b.district, b.city, b.province);
+  return (
+    data
+      // set distance
+      .map((datum) => ({
+        datum,
+        district: distance(datum.district_name, search),
+        city: distance(datum.city_name, search),
+        province: distance(datum.city_name, search),
+      }))
 
-      if (minA !== minB) return minA - minB;
+      // filtring distance is not more than 2
+      .filter(
+        ({ district, city, province }) =>
+          Math.min(district, city, province) <= 2
+      )
 
-      if (a.district !== b.district) return a.district - b.district;
-      if (a.city !== b.city) return a.city - b.city;
-      return a.province - b.province;
-    })
-    .map(({ datum }) => datum);
+      // sort
+      .sort((a, b) => {
+        const minA = Math.min(a.district, a.city, a.province);
+        const minB = Math.min(b.district, b.city, b.province);
+        // check distance value first
+        if (minA !== minB) return minA - minB;
+        // then sort by priority of distric, city, or province
+        if (a.district !== b.district) return a.district - b.district;
+        if (a.city !== b.city) return a.city - b.city;
+        return a.province - b.province;
+      })
+
+      // returning original data
+      .map(({ datum }) => datum)
+  );
 }
