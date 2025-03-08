@@ -9,8 +9,8 @@ homeRouter.get("/", (req, res) => {
   const welcomeMessage = {
     msg: "Welcome to the New World!⛵",
     statusMessage: dataReady()
-      ? "Data is not ready. Please reload in several times again!"
-      : "Data is ready!",
+      ? "Data is ready!"
+      : "Data is not ready. Please reload in several times again!",
     author: "M. Pria Admaja",
     ...(data && data.length > 0 && { data }),
   };
