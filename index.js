@@ -7,7 +7,7 @@ import masterRouter from "./src/routes/index.js";
 
 const PORT = 8000;
 
-await loadDBDataToCache();
+loadDBDataToCache();
 
 const app = express();
 app.use(cors());
