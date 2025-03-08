@@ -3,8 +3,8 @@ import cors from "cors";
 import {} from ''
 import "dotenv/config";
 
-import { loadDBDataToCache } from "./src/cache/index.js";
-import masterRouter from "./src/routes/index.js";
+import { loadDBDataToCache } from "./cache/index.js";
+import masterRouter from "./routes/index.js";
 
 const PORT = 8000;
 
