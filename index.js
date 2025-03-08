@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import {} from ''
 import "dotenv/config";
 
 import { loadDBDataToCache } from "./src/cache/index.js";
@@ -19,6 +18,3 @@ app.use(masterRouter);
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
-export default app
