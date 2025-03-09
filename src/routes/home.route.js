@@ -7,15 +7,19 @@ homeRouter.get("/", (req, res) => {
   const data = getData(search);
 
   if (search) {
-    const searchResponse = {
-      ...(data && data.length > 0
-        ? { status: 200, message: "Success" }
-        : { status: 404, message: "Not found!" }),
-      data: data ?? [],
-    };
+    if (data && data.length > 0) {
+      return res.status(200).json({
+        status: 200,
+        message: "Success",
+        data,
+      });
+    }
 
-    res.json(searchResponse);
-    return;
+    return res.status(404).json({
+      status: 404,
+      message: "Not found!",
+      data: [],
+    });
   }
 
   const welcomeMessage = {
@@ -27,7 +31,7 @@ homeRouter.get("/", (req, res) => {
     exampleQuery: "/?search=malang",
   };
 
-  res.json(welcomeMessage);
+  res.status(200).json(welcomeMessage);
 });
 
 export default homeRouter;
