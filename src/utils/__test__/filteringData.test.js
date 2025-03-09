@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { filteringData } from "../utils/filteringData";
+import { filteringData } from "../filteringData";
 
 const data = [
   {

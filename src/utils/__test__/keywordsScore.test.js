@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { keywordsScore } from "../utils/keywordsScore.js";
+import { keywordsScore } from "../keywordsScore.js";
 
 const data = [
   {
