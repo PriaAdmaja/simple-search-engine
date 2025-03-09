@@ -27,7 +27,7 @@ export function filteringData(data, search) {
         datum,
         district: distance(datum.district_name, search),
         city: distance(datum.city_name, search),
-        province: distance(datum.city_name, search),
+        province: distance(datum.province_name, search),
       }))
 
       // filtring distance is not more than 2
