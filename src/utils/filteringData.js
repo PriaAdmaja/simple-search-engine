@@ -45,6 +45,6 @@ export function filteringData(data, search) {
       .sort(sortingDataScore)
 
       // returning original data
-      // .map(({ datum }) => datum)
+      .map(({ datum }) => datum)
   );
 }
