@@ -38,7 +38,7 @@ export function filteringData(data, search) {
       // filtring distance is not more than 2
       .filter(
         ({ district, city, province, keywords }) =>
-          Math.min(district, city, province, keywords) <= 2
+          Math.min(district, city, province, keywords) < 3
       )
 
       // sort
