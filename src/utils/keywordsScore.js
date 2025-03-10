@@ -1,7 +1,7 @@
 import { distance } from "./levenhsteinDistance.js";
 
 export const keywordsScore = (datum, search) => {
-  const keywords = [datum.district_name, datum.city_name, datum.province_name];
+  const keywords = datum.keywords.split(" ");
   const searchTerms = search.toLowerCase().split(" ");
 
   const searchMatch = searchTerms.map((s) =>
