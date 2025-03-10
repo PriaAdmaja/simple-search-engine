@@ -27,6 +27,7 @@ A location search engine API built with Node.js and Express, featuring PostgreSQ
    ```
 
 3. Create a `.env` file in the root directory with the following content:
+
    ```env
    DB_CONNECTION=your_db_connection
    DB_HOST=your_db_host
@@ -37,12 +38,11 @@ A location search engine API built with Node.js and Express, featuring PostgreSQ
    PORT=your_project_port
    ```
 
-````
-
 4. Start the server
+
 ```bash
 npm start
-````
+```
 
 ## Development
 
@@ -88,7 +88,6 @@ project-root/
 ├── .env.example # Environment variables template
 ├── package.json # Project dependencies and scripts
 └── README.md # This file
-
 
 ## Configuration
 
