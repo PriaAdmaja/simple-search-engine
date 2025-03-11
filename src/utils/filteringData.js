@@ -24,6 +24,7 @@ import { sortingDataScore } from "./sortingDataScore.js";
 //     }]
 
 export function filteringData(data, search) {
+  if(search === '') return []
   return (
     data
       // set distance
@@ -67,6 +68,6 @@ export function filteringData(data, search) {
       .sort(sortingDataScore)
 
     // returning original data
-    // .map(({ datum }) => datum)
+    .map(({ datum }) => datum)
   );
 }

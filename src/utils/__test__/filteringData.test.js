@@ -67,18 +67,7 @@ const data = [
 describe("Filtering Data module", () => {
   test("check result of filter function correctly", () => {
     const expectedResult = [
-      {
-        id: "357901",
-        district_code: "35.79.01",
-        city_code: "35.79",
-        province_code: "35",
-        district_name: "Batu",
-        city_type: "Kota",
-        city_name: "Batu",
-        province_name: "Jawa Timur",
-        full_name: "Kec. Batu, Kota Batu, Jawa Timur",
-        keywords: "batu batu jawa timur",
-      },
+      
       {
         id: "350722",
         city_code: "35.07",
@@ -90,6 +79,18 @@ describe("Filtering Data module", () => {
         keywords: "dau malang jawa timur",
         province_code: "35",
         province_name: "Jawa Timur",
+      },
+      {
+        id: "357901",
+        district_code: "35.79.01",
+        city_code: "35.79",
+        province_code: "35",
+        district_name: "Batu",
+        city_type: "Kota",
+        city_name: "Batu",
+        province_name: "Jawa Timur",
+        full_name: "Kec. Batu, Kota Batu, Jawa Timur",
+        keywords: "batu batu jawa timur",
       },
       {
         id: "357902",
@@ -131,7 +132,7 @@ describe("Filtering Data module", () => {
 
   test('should return results for partial district match', () => {
     const result = filteringData(data, 'Bum');
-    expect(result[0].district_name).toBe('Buru');
+    expect(result[0].district_name).toBe('Bumiaji');
   });
 
   test('should return results for city match', () => {
