@@ -1,3 +1,5 @@
+import { dataHasPrefix } from "./dataHasPrefix.js";
+import { finishDistance } from "./finishDistance.js";
 import { keywordsScore } from "./keywordsScore.js";
 import { distance } from "./levenhsteinDistance.js";
 import { sortingDataScore } from "./sortingDataScore.js";
@@ -26,25 +28,45 @@ export function filteringData(data, search) {
     data
       // set distance
       .map((datum) => {
+        const district = distance(datum.district_name, search);
+        const city = distance(datum.city_name, search);
+        const province = distance(datum.province_name, search);
+
         return {
           datum,
-          district: distance(datum.district_name, search),
-          city: distance(datum.city_name, search),
-          province: distance(datum.province_name, search),
+          district,
+          city,
+          province,
           keywords: keywordsScore(datum, search),
+          prefix: finishDistance(datum, search),
+          isPrefix: dataHasPrefix(datum, search),
+          prefixWithTypo: finishDistance(datum, search, 1),
+          isHasPrefixWithTypo: dataHasPrefix(datum, search, 1),
+          isExactMatch: Math.min(district, city, province) === 0,
         };
       })
 
-      // filtring distance is not more than 2
+      // filtring distance is less than 3
       .filter(
-        ({ district, city, province, keywords }) =>
-          Math.min(district, city, province, keywords) < 3
+        ({
+          district,
+          city,
+          province,
+          keywords,
+          prefix,
+          isPrefix,
+          isHasPrefixWithTypo,
+        }) =>
+          isPrefix ||
+          isHasPrefixWithTypo ||
+          Math.min(district, city, province, keywords) < 3 ||
+          prefix <= 5
       )
 
       // sort
       .sort(sortingDataScore)
 
-      // returning original data
-      .map(({ datum }) => datum)
+    // returning original data
+    // .map(({ datum }) => datum)
   );
 }

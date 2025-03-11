@@ -2,6 +2,15 @@ export const sortingDataScore = (a, b) => {
   const minA = Math.min(a.district, a.city, a.province, a.keywords);
   const minB = Math.min(b.district, b.city, b.province, b.keywords);
 
+  if (a.isExactMatch !== b.isExactMatch) return b.isExactMatch - a.isExactMatch;
+
+  if (a.isPrefix !== b.isPrefix) return b.isPrefix - a.isPrefix;
+  if (a.prefix !== b.prefix) return a.prefix - b.prefix;
+
+  if (a.isHasPrefixWithTypo !== b.isHasPrefixWithTypo)
+    return b.isHasPrefixWithTypo - a.isHasPrefixWithTypo;
+  if (a.prefixWithTypo !== b.prefixWithTypo)
+    return a.prefixWithTypo - b.prefixWithTypo;
   // check distance value first
   if (minA !== minB) return minA - minB;
 
