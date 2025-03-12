@@ -1,7 +1,4 @@
-import { dataHasPrefix } from "./dataHasPrefix.js";
-import { finishDistance } from "./finishDistance.js";
-import { keywordsScore } from "./keywordsScore.js";
-import { distance } from "./levenhsteinDistance.js";
+import { score } from "./score.js";
 import { sortingDataScore } from "./sortingDataScore.js";
 
 // data example =
@@ -24,50 +21,39 @@ import { sortingDataScore } from "./sortingDataScore.js";
 //     }]
 
 export function filteringData(data, search) {
-  if(search === '') return []
+  // return empty array if search is empty string
+  if (search === "") return [];
+
   return (
     data
-      // set distance
-      .map((datum) => {
-        const district = distance(datum.district_name, search);
-        const city = distance(datum.city_name, search);
-        const province = distance(datum.province_name, search);
+    .map((datum) => {
+        // set score
+        const district = score(datum.district_name, search);
+        const city = score(datum.city_name, search);
+        const province = score(datum.province_name, search);
 
         return {
           datum,
-          district,
-          city,
-          province,
-          keywords: keywordsScore(datum, search),
-          prefix: finishDistance(datum, search),
-          isPrefix: dataHasPrefix(datum, search),
-          prefixWithTypo: finishDistance(datum, search, 1),
-          isHasPrefixWithTypo: dataHasPrefix(datum, search, 1),
-          isExactMatch: Math.min(district, city, province) === 0,
+          dataScore: [district, city, province],
         };
       })
 
-      // filtring distance is less than 3
-      .filter(
-        ({
-          district,
-          city,
-          province,
-          keywords,
-          prefix,
-          isPrefix,
-          isHasPrefixWithTypo,
-        }) =>
-          isPrefix ||
-          isHasPrefixWithTypo ||
-          Math.min(district, city, province, keywords) < 3 ||
-          prefix <= 5
-      )
+      // filtring score, disallow unmatch value (all score === 5)
+      .filter(({ dataScore }) => !dataScore.every((d) => d.level === 5))
 
       // sort
       .sort(sortingDataScore)
 
-    // returning original data
-    .map(({ datum }) => datum)
+      // returning original data
+      // .map(({ datum }) => datum)
+
+      // returning score
+      // .map((data) => data.dataScore)
+
+      // returning full name
+      .map(({ datum }) => datum.full_name)
+
+      // show max 30 data
+      .slice(0, 30)
   );
 }

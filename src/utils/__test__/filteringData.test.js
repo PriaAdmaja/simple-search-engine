@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { filteringData } from "../filteringData";
+import { filteringData } from "../filteringData.js";
 
 const data = [
   {
@@ -67,55 +67,10 @@ const data = [
 describe("Filtering Data module", () => {
   test("check result of filter function correctly", () => {
     const expectedResult = [
-      
-      {
-        id: "350722",
-        city_code: "35.07",
-        city_name: "Malang",
-        city_type: "Kabupaten",
-        district_code: "35.07.22",
-        district_name: "Dau",
-        full_name: "Kec. Dau, Kab. Malang, Jawa Timur",
-        keywords: "dau malang jawa timur",
-        province_code: "35",
-        province_name: "Jawa Timur",
-      },
-      {
-        id: "357901",
-        district_code: "35.79.01",
-        city_code: "35.79",
-        province_code: "35",
-        district_name: "Batu",
-        city_type: "Kota",
-        city_name: "Batu",
-        province_name: "Jawa Timur",
-        full_name: "Kec. Batu, Kota Batu, Jawa Timur",
-        keywords: "batu batu jawa timur",
-      },
-      {
-        id: "357902",
-        district_code: "35.79.02",
-        city_code: "35.79",
-        province_code: "35",
-        district_name: "Bumiaji",
-        city_type: "Kota",
-        city_name: "Batu",
-        province_name: "Jawa Timur",
-        full_name: "Kec. Bumiaji, Kota Batu, Jawa Timur",
-        keywords: "bumiaji batu jawa timur",
-      },
-      {
-        id: "210206",
-        city_code: "21.02",
-        city_name: "Karimun",
-        city_type: "Kabupaten",
-        district_code: "21.02.06",
-        district_name: "Buru",
-        full_name: "Kec. Buru, Kab. Karimun, Kepulauan Riau",
-        keywords: "buru karimun kepulauan riau",
-        province_code: "21",
-        province_name: "Kepulauan Riau",
-      }
+      "Kec. Dau, Kab. Malang, Jawa Timur",
+      "Kec. Batu, Kota Batu, Jawa Timur",
+      "Kec. Bumiaji, Kota Batu, Jawa Timur",
+      "Kec. Buru, Kab. Karimun, Kepulauan Riau"
     ];
     expect(filteringData(data, "bau")).toStrictEqual(expectedResult);
   });
@@ -127,12 +82,12 @@ describe("Filtering Data module", () => {
 
   test('should return exact district match first', () => {
     const result = filteringData(data, 'Batu');
-    expect(result[0].district_name).toBe('Batu');
+    expect(result[0]).toBe('Kec. Batu, Kota Batu, Jawa Timur');
   });
 
   test('should return results for partial district match', () => {
     const result = filteringData(data, 'Bum');
-    expect(result[0].district_name).toBe('Bumiaji');
+    expect(result[0]).toBe('Kec. Bumiaji, Kota Batu, Jawa Timur');
   });
 
   test('should return results for city match', () => {
@@ -157,7 +112,7 @@ describe("Filtering Data module", () => {
 
   test('should handle typos with Levenshtein distance', () => {
     const result = filteringData(data, 'Batuu');
-    expect(result[0].district_name).toBe('Batu');
+    expect(result[0]).toBe('Kec. Batu, Kota Batu, Jawa Timur');
   });
 
   test('should return empty array for empty search string', () => {

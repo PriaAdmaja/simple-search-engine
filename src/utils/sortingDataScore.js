@@ -1,22 +1,32 @@
-export const sortingDataScore = (a, b) => {
-  const minA = Math.min(a.district, a.city, a.province, a.keywords);
-  const minB = Math.min(b.district, b.city, b.province, b.keywords);
+export const sortingDataScore = (x, y) => {
+  const a = x.dataScore;
+  const b = y.dataScore;
 
-  if (a.isExactMatch !== b.isExactMatch) return b.isExactMatch - a.isExactMatch;
+  const minLength = Math.min(a.length, b.length);
 
-  if (a.isPrefix !== b.isPrefix) return b.isPrefix - a.isPrefix;
-  if (a.prefix !== b.prefix) return a.prefix - b.prefix;
+  for (let i = 0; i < minLength; i++) {
+    if (a[i].level !== b[i].level) {
+      return a[i].level - b[i].level; // Lower level is prioritized
+    }
+  }
 
-  if (a.isHasPrefixWithTypo !== b.isHasPrefixWithTypo)
-    return b.isHasPrefixWithTypo - a.isHasPrefixWithTypo;
-  if (a.prefixWithTypo !== b.prefixWithTypo)
-    return a.prefixWithTypo - b.prefixWithTypo;
-  // check distance value first
-  if (minA !== minB) return minA - minB;
+  // If all levels match, compare total scores for each level
+  const totalScoreA = calculateLevelTotalScore(a);
+  const totalScoreB = calculateLevelTotalScore(b);
 
-  // then sort by priority of keywords, distric, city, or province
-  if (a.district !== b.district) return a.district - b.district;
-  if (a.city !== b.city) return a.city - b.city;
-  if (a.province !== b.province) return a.province - b.province;
-  return a.keywords - b.keywords;
+  for (let i = 0; i < minLength; i++) {
+    const level = a[i].level;
+    if (totalScoreA[level] !== totalScoreB[level]) {
+      return totalScoreB[level] - totalScoreA[level]; // Higher total score is prioritized
+    }
+  }
+
+  return a.datum.district_name - b.datum.district_name; // If still equal, sort by district name
+};
+
+const calculateLevelTotalScore = (arr) => {
+  return arr.reduce((acc, { level, score }) => {
+    acc[level] = (acc[level] || 0) + score;
+    return acc;
+  }, {});
 };
