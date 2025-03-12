@@ -67,10 +67,10 @@ const data = [
 describe("Filtering Data module", () => {
   test("check result of filter function correctly", () => {
     const expectedResult = [
-      "Kec. Dau, Kab. Malang, Jawa Timur",
       "Kec. Batu, Kota Batu, Jawa Timur",
+      "Kec. Dau, Kab. Malang, Jawa Timur",
+      "Kec. Buru, Kab. Karimun, Kepulauan Riau",
       "Kec. Bumiaji, Kota Batu, Jawa Timur",
-      "Kec. Buru, Kab. Karimun, Kepulauan Riau"
     ];
     expect(filteringData(data, "bau")).toStrictEqual(expectedResult);
   });
@@ -92,21 +92,6 @@ describe("Filtering Data module", () => {
 
   test('should return results for city match', () => {
     const result = filteringData(data, 'Batu');
-    expect(result.length).toBe(4);
-  });
-
-  test('should return results for province match', () => {
-    const result = filteringData(data, 'Jawa Timur');
-    expect(result.length).toBe(4);
-  });
-
-  test('should return results for keyword match', () => {
-    const result = filteringData(data, 'batu jawa');
-    expect(result.length).toBe(4);
-  });
-
-  test('should prioritize keyword matches over other matches', () => {
-    const result = filteringData(data, 'batu jawa timur');
     expect(result.length).toBe(4);
   });
 

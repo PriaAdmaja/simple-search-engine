@@ -21,9 +21,25 @@ export const sortingDataScore = (x, y) => {
     }
   }
 
-  return a.datum.district_name - b.datum.district_name; // If still equal, sort by district name
+  return x.datum.district_name - y.datum.district_name; // If still equal, sort by district name
 };
 
+
+/**
+ * Calculate total scores for each level from an array of level-score pairs
+ * 
+ * @example
+ * const data = [
+ *   { level: 1, score: 10 },
+ *   { level: 1, score: 15 },
+ *   { level: 2, score: 20 }
+ * ]
+ * calculateLevelTotalScore(data)
+ * // Returns: { 1: 25, 2: 20 }
+ * 
+ * @param {Array<{level: number, score: number}>} arr Array of objects containing level and score
+ * @returns {Object.<number, number>} Object mapping level numbers to their total scores
+ */
 const calculateLevelTotalScore = (arr) => {
   return arr.reduce((acc, { level, score }) => {
     acc[level] = (acc[level] || 0) + score;
