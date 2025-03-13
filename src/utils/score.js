@@ -9,7 +9,7 @@ export const score = (base, search) => {
 
   if (baseClean === searchClean) {
     return {
-      level: 1,
+      level: 0,
       score: 100,
     };
   }
