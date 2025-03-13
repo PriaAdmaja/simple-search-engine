@@ -45,13 +45,13 @@ export function filteringData(data, search) {
       .sort(sortingDataScore)
 
       // returning original data
-      // .map(({ datum }) => datum)
+      .map(({ datum }) => datum)
 
       // returning score
       // .map((data) => data.dataScore)
 
       // returning full name
-      .map(({ datum }) => datum.full_name)
+      // .map(({ datum }) => datum.full_name)
 
       // show max 30 data
       .slice(0, 30)
