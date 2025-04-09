@@ -78,6 +78,7 @@ npm test
 
 ## Project Structure
 
+```
 project-root/
 │
 ├── src/
@@ -88,6 +89,7 @@ project-root/
 ├── .env.example # Environment variables template
 ├── package.json # Project dependencies and scripts
 └── README.md # This file
+```
 
 ## Configuration
 
