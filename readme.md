@@ -83,7 +83,10 @@ project-root/
 │
 ├── src/
 │ ├── cache/ # Caching system implementation
-│ └── routes/ # Route definitions
+│ ├── config/ # Configuration files and settings
+│ ├── routes/ # Route definitions
+│ └── utils/ # Utility functions
+│   └── __tests__/ # Unit tests for utility functions
 ├── tests/ # Test files
 ├── index.js # Main application entry point
 ├── .env.example # Environment variables template
