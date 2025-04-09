@@ -23,7 +23,7 @@ homeRouter.get("/", (req, res) => {
   }
 
   const welcomeMessage = {
-    message: "Welcome to the New World!⛵",
+    message: "Location List API 📍",
     dataStatus: dataReady()
       ? "Data is ready!"
       : "Data is not ready. Please try reloading a few more times!",
