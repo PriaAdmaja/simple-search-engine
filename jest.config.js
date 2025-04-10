@@ -1,6 +1,15 @@
 /** @type {import('jest').Config} */
-const config = {
+export default {
     verbose: true,
-  };
-  
-  module.exports = config;
+    testEnvironment: 'node',
+    transform: {
+        '^.+\\.js$': 'babel-jest',
+    },
+    moduleFileExtensions: ['js'],
+    testMatch: ['**/src/utils/__test__/**/*.test.js'],
+    globals: {
+        'ts-jest': {
+            useESM: true,
+        },
+    },
+};
