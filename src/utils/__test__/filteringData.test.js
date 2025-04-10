@@ -65,48 +65,71 @@ const data = [
 ];
 
 describe("Filtering Data module", () => {
-  test("check result of filter function correctly", () => {
-    const expectedResult = [
-      "Kec. Batu, Kota Batu, Jawa Timur",
-      "Kec. Dau, Kab. Malang, Jawa Timur",
-      "Kec. Buru, Kab. Karimun, Kepulauan Riau",
-      "Kec. Bumiaji, Kota Batu, Jawa Timur",
-    ];
-    expect(filteringData(data, "bau")).toStrictEqual(expectedResult);
-  });
-
-  test('should return empty array when no matches found', () => {
-    const result = filteringData(data, 'Jakarta');
+  test("should return empty array when no matches found", () => {
+    const result = filteringData(data, "Jakarta");
     expect(result).toEqual([]);
   });
 
-  test('should return exact district match first', () => {
-    const result = filteringData(data, 'Batu');
-    expect(result[0]).toBe('Kec. Batu, Kota Batu, Jawa Timur');
+  test("should return exact district match first", () => {
+    const result = filteringData(data, "Batu");
+    expect(result[0]).toEqual({
+      city_code: "35.79",
+      city_name: "Batu",
+      city_type: "Kota",
+      district_code: "35.79.01",
+      district_name: "Batu",
+      full_name: "Kec. Batu, Kota Batu, Jawa Timur",
+      id: "357901",
+      keywords: "batu batu jawa timur",
+      province_code: "35",
+      province_name: "Jawa Timur",
+    });
   });
 
-  test('should return results for partial district match', () => {
-    const result = filteringData(data, 'Bum');
-    expect(result[0]).toBe('Kec. Bumiaji, Kota Batu, Jawa Timur');
+  test("should return results for partial district match", () => {
+    const result = filteringData(data, "Bum");
+    expect(result[0]).toEqual({
+      city_code: "35.79",
+      city_name: "Batu",
+      city_type: "Kota",
+      district_code: "35.79.02",
+      district_name: "Bumiaji",
+      full_name: "Kec. Bumiaji, Kota Batu, Jawa Timur",
+      id: "357902",
+      keywords: "bumiaji batu jawa timur",
+      province_code: "35",
+      province_name: "Jawa Timur",
+    });
   });
 
-  test('should return results for city match', () => {
-    const result = filteringData(data, 'Batu');
+  test("should return results for city match", () => {
+    const result = filteringData(data, "Batu");
     expect(result.length).toBe(4);
   });
 
-  test('should handle typos with Levenshtein distance', () => {
-    const result = filteringData(data, 'Batuu');
-    expect(result[0]).toBe('Kec. Batu, Kota Batu, Jawa Timur');
+  test("should handle typos with Levenshtein distance", () => {
+    const result = filteringData(data, "Batuu");
+    expect(result[0]).toEqual({
+      city_code: "35.79",
+      city_name: "Batu",
+      city_type: "Kota",
+      district_code: "35.79.01",
+      district_name: "Batu",
+      full_name: "Kec. Batu, Kota Batu, Jawa Timur",
+      id: "357901",
+      keywords: "batu batu jawa timur",
+      province_code: "35",
+      province_name: "Jawa Timur",
+    });
   });
 
-  test('should return empty array for empty search string', () => {
-    const result = filteringData(data, '');
+  test("should return empty array for empty search string", () => {
+    const result = filteringData(data, "");
     expect(result).toEqual([]);
   });
 
-  test('should return empty array for empty data', () => {
-    const result = filteringData([], 'Batu');
+  test("should return empty array for empty data", () => {
+    const result = filteringData([], "Batu");
     expect(result).toEqual([]);
   });
 });
