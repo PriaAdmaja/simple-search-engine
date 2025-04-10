@@ -4,9 +4,9 @@ import { dataReady, getData } from "../cache/index.js";
 const homeRouter = Router();
 homeRouter.get("/", (req, res) => {
   const { search } = req.query;
-  const data = getData(search);
 
-  if (search) {
+  if (search !== undefined) {
+    const data = getData(search);
     if (data && data.length > 0) {
       return res.status(200).json({
         status: 200,
